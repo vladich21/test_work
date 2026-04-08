@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 .next/
 out/
@@ -13,3 +14,20 @@ npm-debug.log*
 .idea/
 *.tsbuildinfo
 next-env.d.ts
+=======
+node_modules/
+.next/
+out/
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+.DS_Store
+.idea/
+*.tsbuildinfo
+next-env.d.ts
+>>>>>>> d86c7279da28f6721dc1e5a5d6a696b2d080f758

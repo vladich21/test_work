@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Dependencies
 node_modules/
 
@@ -21,3 +22,28 @@ Thumbs.db
 
 # Test coverage
 coverage/
+=======
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables — NEVER commit secrets
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.sw?
+
+# Test coverage
+coverage/
+>>>>>>> d86c7279da28f6721dc1e5a5d6a696b2d080f758

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Controller, Get, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
@@ -11,3 +12,18 @@ export class UsersController {
     return this.service.findByTgId(tgId);
   }
 }
+=======
+import { Controller, Get, Param } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { User } from './entities/user.entity';
+
+@Controller('users')
+export class UsersController {
+  constructor(private readonly service: UsersService) { }
+
+  @Get(':tgId')
+  async findByTgId(@Param('tgId') tgId: string): Promise<User | null> {
+    return this.service.findByTgId(tgId);
+  }
+}
+>>>>>>> d86c7279da28f6721dc1e5a5d6a696b2d080f758
