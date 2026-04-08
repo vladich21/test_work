@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "version": "7",
   "dialect": "mysql",
@@ -18,25 +17,4 @@
       "breakpoints": true
     }
   ]
-=======
-{
-  "version": "7",
-  "dialect": "mysql",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1753715483944,
-      "tag": "0000_wakeful_timeslip",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1744020000000,
-      "tag": "0001_mortgage_tables",
-      "breakpoints": true
-    }
-  ]
->>>>>>> d86c7279da28f6721dc1e5a5d6a696b2d080f758
 }
