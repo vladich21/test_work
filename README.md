@@ -119,5 +119,4 @@ Redis:  localhost:6379
 
 ## Диаграммы
 
-- Диаграмма последовательностей (FigJam): _ссылка_
-- Диаграмма зависимостей (FigJam): _ссылка_
+- Диаграмма последовательностей и зависимостей (FigJam): [_ссылка_](https://www.figma.com/board/1om8LEx7XQOFyH8VzgfoKr/Untitled?node-id=0-1&t=WP8q4bTx0jKqiZ3U-1)
