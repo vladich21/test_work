@@ -1,42 +1,42 @@
-# РўРµСЃС‚РѕРІРѕРµ Р·Р°РґР°РЅРёРµ
+# Тестовое задание
 
-## РЎС‚СЂСѓРєС‚СѓСЂР° РїСЂРѕРµРєС‚Р°
+## Структура проекта
 
-- `server/` вЂ” API РёРїРѕС‚РµС‡РЅРѕРіРѕ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР° (NestJS, Drizzle ORM, MySQL, Redis, Bull)
-- `task.fund/server/` вЂ” API С„РѕРЅРґР° СЃ Telegram-Р±РѕС‚РѕРј (NestJS, Sequelize)
-- `client/` вЂ” Telegram Mini App В«Open FoundationВ» (Next.js, Effector, Tailwind)
+- `server/` — API ипотечного калькулятора (NestJS, Drizzle ORM, MySQL, Redis, Bull)
+- `task.fund/server/` — API фонда с Telegram-ботом (NestJS, Sequelize)
+- `client/` — Telegram Mini App «Open Foundation» (Next.js, Effector, Tailwind)
 
 ---
 
-## Р‘С‹СЃС‚СЂС‹Р№ СЃС‚Р°СЂС‚
+## Быстрый старт
 
-**РќСѓР¶РЅРѕ:** Docker Desktop, Node.js 18+
+**Нужно:** Docker Desktop, Node.js 18+
 
-### 1. Р—Р°РїСѓСЃС‚РёС‚СЊ Р±Р°Р·Сѓ РґР°РЅРЅС‹С… Рё Redis
+### 1. Запустить базу данных и Redis
 
 ```bash
 docker compose up -d
 ```
 
-РџРѕРґРѕР¶РґР°С‚СЊ ~15 СЃРµРєСѓРЅРґ РїРѕРєР° MySQL РїРѕРґРЅРёРјРµС‚СЃСЏ:
+Подождать ~15 секунд пока MySQL поднимется:
 ```bash
-docker compose ps  # РѕР±Р° СЃРµСЂРІРёСЃР° РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Up
+docker compose ps  # оба сервиса должны быть Up
 ```
 
-### 2. Р—Р°РїСѓСЃС‚РёС‚СЊ СЃРµСЂРІРµСЂС‹ (РєР°Р¶РґС‹Р№ РІ РѕС‚РґРµР»СЊРЅРѕР№ РІРєР»Р°РґРєРµ С‚РµСЂРјРёРЅР°Р»Р°)
+### 2. Запустить серверы (каждый в отдельной вкладке терминала)
 
-**Fund API (РїРѕСЂС‚ 5094)**
+**Fund API (порт 5094)**
 ```bash
 cd task.fund/server
 cp .env.example .env
-# Р·Р°РїРѕР»РЅРёС‚СЊ .env: HOST=127.0.0.1 PORT=3307 USERNAME=appuser PASSWORD=apppass DATABASE=fund_db
-# TELEGRAM_BOT_TOKEN Рё APP_URL вЂ” Р»СЋР±С‹Рµ Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ Р»РѕРєР°Р»СЊРЅРѕРіРѕ Р·Р°РїСѓСЃРєР°
+# заполнить .env: HOST=127.0.0.1 PORT=3307 USERNAME=appuser PASSWORD=apppass DATABASE=fund_db
+# TELEGRAM_BOT_TOKEN и APP_URL — любые значения для локального запуска
 npm install
 npm run db:migrate
 npm run dev
 ```
 
-**РљР»РёРµРЅС‚ (РїРѕСЂС‚ 3000)**
+**Клиент (порт 3000)**
 ```bash
 cd client
 cp .env.local.example .env.local
@@ -44,34 +44,34 @@ npm install
 npm run dev
 ```
 
-РћС‚РєСЂС‹С‚СЊ [http://localhost:3000](http://localhost:3000)
+Открыть [http://localhost:3000](http://localhost:3000)
 
-**Mortgage API (РїРѕСЂС‚ 5095)**
+**Mortgage API (порт 5095)**
 ```bash
 cd server
 cp .env.example .env
-# Р·Р°РїРѕР»РЅРёС‚СЊ .env: HOST=127.0.0.1 PORT=3307 USERNAME=appuser PASSWORD=apppass DATABASE=mortgage_db
+# заполнить .env: HOST=127.0.0.1 PORT=3307 USERNAME=appuser PASSWORD=apppass DATABASE=mortgage_db
 # REDIS_HOST=localhost REDIS_PORT=6379
 npm install
 npm run db:migrate
 npm run dev
 ```
 
-### Docker: РґР°РЅРЅС‹Рµ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+### Docker: данные для подключения
 
 ```
 MySQL:  127.0.0.1:3307  user=appuser  password=apppass
-        Р‘Р”: fund_db, mortgage_db (СЃРѕР·РґР°СЋС‚СЃСЏ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё)
+        БД: fund_db, mortgage_db (создаются автоматически)
 Redis:  localhost:6379
 ```
 
 ---
 
-## API РёРїРѕС‚РµС‡РЅРѕРіРѕ РєР°Р»СЊРєСѓР»СЏС‚РѕСЂР°
+## API ипотечного калькулятора
 
-### POST `/api/mortgage-profiles` вЂ” СЃРѕР·РґР°С‚СЊ СЂР°СЃС‡С‘С‚
+### POST `/api/mortgage-profiles` — создать расчёт
 
-РўРµР»Рѕ Р·Р°РїСЂРѕСЃР°:
+Тело запроса:
 ```json
 {
   "propertyPrice": 5000000,
@@ -84,13 +84,13 @@ Redis:  localhost:6379
 }
 ```
 
-РћС‚РІРµС‚: `{ "id": "1" }`
+Ответ: `{ "id": "1" }`
 
-Р”РѕРїСѓСЃС‚РёРјС‹Рµ Р·РЅР°С‡РµРЅРёСЏ `propertyType`: `apartment_in_new_building`, `apartment_in_secondary_building`, `house`, `house_with_land_plot`, `land_plot`, `other`
+Допустимые значения `propertyType`: `apartment_in_new_building`, `apartment_in_secondary_building`, `house`, `house_with_land_plot`, `land_plot`, `other`
 
-РњРѕР¶РЅРѕ РїРµСЂРµРґР°С‚СЊ Р·Р°РіРѕР»РѕРІРѕРє `X-User-Id: <uuid>` РґР»СЏ РїСЂРёРІСЏР·РєРё Рє РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ.
+Можно передать заголовок `X-User-Id: <uuid>` для привязки к пользователю.
 
-### GET `/api/mortgage-profiles/:id` вЂ” РїРѕР»СѓС‡РёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚
+### GET `/api/mortgage-profiles/:id` — получить результат
 
 ```json
 {
@@ -113,11 +113,11 @@ Redis:  localhost:6379
 }
 ```
 
-> `mortgagePaymentSchedule` РјРѕР¶РµС‚ Р±С‹С‚СЊ `null` 1вЂ“2 СЃРµРєСѓРЅРґС‹ РїРѕРєР° РІРѕСЂРєРµСЂ СЃС‡РёС‚Р°РµС‚ РіСЂР°С„РёРє. РџРѕРІС‚РѕСЂРёС‚СЊ Р·Р°РїСЂРѕСЃ С‡РµСЂРµР· СЃРµРєСѓРЅРґСѓ.
+> `mortgagePaymentSchedule` может быть `null` 1–2 секунды пока воркер считает график. Повторить запрос через секунду.
 
 ---
 
-## Р”РёР°РіСЂР°РјРјС‹
+## Диаграммы
 
-- Р”РёР°РіСЂР°РјРјР° РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚РµР№ (FigJam): _СЃСЃС‹Р»РєР°_
-- Р”РёР°РіСЂР°РјРјР° Р·Р°РІРёСЃРёРјРѕСЃС‚РµР№ (FigJam): _СЃСЃС‹Р»РєР°_
+- Диаграмма последовательностей (FigJam): _ссылка_
+- Диаграмма зависимостей (FigJam): _ссылка_
