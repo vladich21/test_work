@@ -23,7 +23,7 @@ export const $topHolders = $transactions.map((list) =>
 );
 
 if (process.env.NODE_ENV === 'development') {
-  fetchTransactionsFx.watch(() => console.log('[transactions] fetchingвЂ¦'));
+  fetchTransactionsFx.watch(() => console.log('[transactions] fetching...'));
   fetchTransactionsFx.doneData.watch((list) =>
     console.log(`[transactions] loaded ${list.length} records`),
   );
